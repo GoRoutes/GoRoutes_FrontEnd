@@ -2,5 +2,5 @@
 </script>
 
 <template>
-    <div>da22sh</div>
+    <div>Dashboard</div>
 </template>

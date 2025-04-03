@@ -4,17 +4,18 @@
     
     <div class="sidebar" :class="{ show: isSidebarVisible }">
       <div class="menu-category" v-for="(category, index) in menuItems" :key="index">
-        <div class="menu-item" 
-             :class="{ active: category.active }" 
-             @click="toggleCategory(index)">
+        <div 
+          class="menu-item" 
+          :class="{ active: category.active }" 
+          @click="category.name === 'Configurações' ? activateCategory(index) : toggleCategory(index)">
           <div class="menu-icon">
             <component :is="category.icon" />
           </div>
           <span>{{ category.name }}</span>
-          <span class="arrow" :class="{ rotated: category.expanded }">▼</span>
+          <span v-if="category.subItems.length > 0" class="arrow" :class="{ rotated: category.expanded }">▼</span>
         </div>
         <Transition name="accordion">
-          <div class="submenu" v-if="category.expanded">
+          <div class="submenu" v-if="category.expanded && category.subItems.length > 0">
             <a href="#" 
                class="submenu-item" 
                :class="{ active: subItem.active }"
@@ -35,8 +36,6 @@ import { ref } from 'vue';
 
 import CarIcon from "vue-material-design-icons/Car.vue";
 import AccountIcon from "vue-material-design-icons/Account.vue";
-import AccountGroupIcon from "vue-material-design-icons/AccountGroup.vue";
-import AccountSupervisorIcon from "vue-material-design-icons/AccountSupervisor.vue";
 import MapMarkerPathIcon from "vue-material-design-icons/MapMarkerPath.vue";
 import CogIcon from "vue-material-design-icons/Cog.vue";
 import SettingsIcon from "vue-material-design-icons/Cog.vue";
@@ -49,45 +48,39 @@ const menuItems = ref([
     expanded: false,
     active: false,
     subItems: [
-      { name: 'Vans', active: false },
-      { name: 'Outros', active: false }
+      { name: '> Vans e Micros', active: false },
+      { name: '> Rastrear Veiculo', active: false },
     ]
   },
   {
     name: 'Clientes',
+    icon: CogIcon,
+    expanded: false,
+    active: false,
+    subItems: [
+      { name: '> Alunos', active: false },
+      { name: '> Pais', active: false },
+    ]
+  },
+  {
+    name: 'Motoristas',
     icon: AccountIcon,
     expanded: false,
     active: false,
-    subItems: []
-  },
-  {
-    name: 'Alunos',
-    icon: AccountGroupIcon,
-    expanded: false,
-    active: false,
-    subItems: []
-  },
-  {
-    name: 'Responsáveis',
-    icon: AccountSupervisorIcon,
-    expanded: false,
-    active: false,
-    subItems: []
+    subItems: [
+      { name: '> Motoristas', active: false },
+      { name: '> Rastrear Motorista', active: false },
+    ]
   },
   {
     name: 'Rotas',
     icon: MapMarkerPathIcon,
     expanded: false,
     active: false,
-    subItems: []
-  },
-  {
-    name: 'Gerenciar',
-    icon: CogIcon,
-    expanded: false,
-    active: false,
     subItems: [
-      { name: 'Outros', active: false }
+      { name: '> Ver Rotas', active: false },
+      { name: '> Criar Rota', active: false },
+      { name: '> Consultar Rota', active: false }
     ]
   },
   {
@@ -119,6 +112,12 @@ const toggleCategory = (index) => {
   });
 };
 
+const activateCategory = (index) => {
+  menuItems.value.forEach((category, i) => {
+    category.active = i === index;
+  });
+};
+
 const activateSubItem = (categoryIndex, subItemIndex) => {
   menuItems.value.forEach(category => {
     category.subItems.forEach(subItem => {
@@ -132,6 +131,7 @@ const activateSubItem = (categoryIndex, subItemIndex) => {
 </script>
 
 <style scoped>
+/* Estilos permanecem os mesmos */
 * {
   margin: 0;
   padding: 0;
@@ -181,6 +181,7 @@ const activateSubItem = (categoryIndex, subItemIndex) => {
   background-color: #e0e0ff;
   color: #5050ff;
   font-weight: 500;
+  border-right: 2px solid #5050ff;
 }
 
 .menu-icon {
@@ -214,6 +215,7 @@ const activateSubItem = (categoryIndex, subItemIndex) => {
   background-color: #e0e0ff;
   color: #5050ff;
   font-weight: 500;
+  border-right: 2px solid #5050ff;
 }
 
 .arrow {
