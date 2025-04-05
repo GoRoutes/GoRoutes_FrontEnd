@@ -1,6 +1,4 @@
 <script setup>
-import { ref, defineProps } from "vue";
-
 defineProps({
     'name': String,
 });
@@ -24,7 +22,6 @@ div {
     transition: all 0.3s ease-in-out;
     background-color: var(--primary-color);
     color: #fff;
-    /* font-size: 1.2rem; */
     border-radius: 10px;
     border: none;
     padding: .25rem;

@@ -15,13 +15,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* height: 100%; */
 }
 .logo-container h1 {
     color: var(--primary-color);
     font-size: 2.5rem;
     font-weight: 700;
-    /* margin-left: .5rem; */
 }
 .logo {
     width: 80%;
@@ -32,7 +30,6 @@
     font-size: 1.5rem;
     font-weight: 500;
     text-align: center;
-    /* margin-left: 1rem; */
 }
 .logo-subtext {
     color: var(--secundary-color);
