@@ -1,6 +1,6 @@
 <script setup>
+import { LoginComp } from "@/components";
 </script>
-
 <template>
-    <div>s</div>
+    <LoginComp />
 </template>
