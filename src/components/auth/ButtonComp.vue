@@ -1,11 +1,12 @@
 <script setup>
 defineProps({
     'name': String,
+    'padding': String,
 });
 </script>
 <template>
     <div>
-        <button class="btn" @click="$emit('click')">
+        <button class="btn" @click="$emit('click')" :style="{ padding: padding }">
             {{ name }}
         </button>
     </div>

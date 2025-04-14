@@ -19,7 +19,6 @@ import { HeaderMain, AsideMain } from '@/components'
         </div>
     </div>
 
-    <RouterView />
 </template>
 
 <style scoped>
@@ -48,7 +47,6 @@ import { HeaderMain, AsideMain } from '@/components'
         display: flex;
     }
 
-    
-}
 
+}
 </style>

@@ -10,7 +10,7 @@ import LogoComp from "./LogoComp.vue";
         <div class="form-container">
             <InputComp label="Email" type="email" placeholder="Enter your email" v-model="email" haveSubtext="false" />
             <InputComp label="Password" type="password" placeholder="Enter your password" v-model="password" haveSubtext="true" subtext="Forgot password?" />
-            <ButtonComp name="Login" @click="handleLogin" />
+            <ButtonComp name="Login" @click="handleLogin" padding=".5rem" />
         </div>
     </div>
     <div class="aside">
@@ -29,7 +29,7 @@ import LogoComp from "./LogoComp.vue";
 .aside{
     margin: auto;
     gap: 1rem;
-    width: 50%;
+    width: 60%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -47,7 +47,7 @@ import LogoComp from "./LogoComp.vue";
     align-items: center;
     justify-content: center;
     height: 100vh;
-    width: 28%;
+    width: 40%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
 }
