@@ -24,12 +24,12 @@ import LogoComp from "./LogoComp.vue";
     display: flex;
     flex-direction: row;
     height: 100vh;
-    width: 100%;
+    min-width: 100%;
 }
 .aside{
     margin: auto;
     gap: 1rem;
-    width: 60%;
+    width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
