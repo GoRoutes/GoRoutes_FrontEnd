@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import BlankLayout from '@/layouts/BlankLayout.vue';
-import { HomeView, LoginView, DashboardView} from '@/views';
+import { HomeView, LoginView, DashboardView, RegisterView} from '@/views';
 
 const routes = [
   {
@@ -19,6 +19,7 @@ const routes = [
     children: [
       { path: '', component: LoginView }, 
       { path: 'login', component: LoginView },
+      { path: 'register', component: RegisterView }, 
     ],
   },
 ];

@@ -1,4 +1,7 @@
 <script setup>
+defineProps({
+    "title": String
+});
 </script>
 <template>
     <div class="logo-container">
@@ -6,8 +9,8 @@
         <h1>GoRoutes</h1>
     </div>
     <div class="text-container">
-            <h1 class="logo-text">Welcome Back</h1>
-            <p class="logo-subtext">Please enter your details to log in</p>
+            <h1 class="logo-text">{{ title }}</h1>
+            <!-- <p class="logo-subtext">Please enter your details to log in</p> -->
         </div>
 </template>
 <style scoped>
@@ -26,10 +29,12 @@
 }
 .logo-text {
     margin-top: 5%;
+    width: 80%;
+    margin: 5% auto;
     color: var(--primary-color);
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 500;
-    text-align: center;
+    text-align:  center;
 }
 .logo-subtext {
     color: var(--secundary-color);

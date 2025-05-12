@@ -6,7 +6,7 @@ import LogoComp from "./LogoComp.vue";
 <template>
     <div class="container">
     <div class="login-container">
-        <LogoComp />
+        <LogoComp title="Aqui você viaja com conforto e confiança."  />
         <div class="form-container">
             <InputComp label="Email" type="email" placeholder="Enter your email" v-model="email" haveSubtext="false" />
             <InputComp label="Password" type="password" placeholder="Enter your password" v-model="password" haveSubtext="true" subtext="Forgot password?" />
