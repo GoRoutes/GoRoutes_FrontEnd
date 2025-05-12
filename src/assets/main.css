@@ -1,8 +1,11 @@
 @import 'tailwindcss';
 
+
 :root {
   --primary-color: #022840;
   --secondary-color: #6264A0;
+  --logo-color: #050D2D;
+  --comment-color: #353DCC;
 }
 
 *{
