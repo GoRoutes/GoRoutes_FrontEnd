@@ -6,10 +6,10 @@ import InputComp from './InputComp.vue';
     <InputComp label="Foto de Perfil" type="file" placeholder="Foto de perfil"/>
     <InputComp label="Data de Nascimento" type="date" placeholder="Data de Nascimento"/> 
     <InputComp label="Telefone" type="number" placeholder="Número de Telefone"/> 
-        <div class="btn-container">
-<ButtonComp name="PRÓXIMO" padding=".5rem" @click="$emit('back')" />
+    <div class="btn-container">
+        <ButtonComp name="PRÓXIMO" padding=".5rem" @click="$emit('pass')" />
     </div>
-        <div class="btn-container">
+    <div class="btn-container">
         <ButtonComp name="VOLTAR" padding=".5rem" @click="$emit('back')" /> 
     </div>
 </template>

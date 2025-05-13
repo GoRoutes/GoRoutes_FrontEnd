@@ -10,10 +10,11 @@ defineProps({
     </div>
     <div class="text-container">
             <h1 class="logo-text">{{ title }}</h1>
-            <!-- <p class="logo-subtext">Please enter your details to log in</p> -->
         </div>
 </template>
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Homenaje&display=swap');
+
 .logo-container {
     display: flex;
     align-items: center;
@@ -22,7 +23,7 @@ defineProps({
 .logo-container h1 {
     color: var(--primary-color);
     font-size: 2.5rem;
-    font-weight: 700;
+    font-family: "Homenaje", sans-serif;
 }
 .logo {
     width: 80%;
@@ -32,9 +33,10 @@ defineProps({
     width: 80%;
     margin: 5% auto;
     color: var(--primary-color);
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     font-weight: 500;
     text-align:  center;
+    font-family: "Homenaje", sans-serif;
 }
 .logo-subtext {
     color: var(--secundary-color);

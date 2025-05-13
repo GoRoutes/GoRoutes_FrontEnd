@@ -8,7 +8,7 @@ import InputComp from './InputComp.vue';
     <InputComp label="Senha" type="password" placeholder="Senha"/> 
     <InputComp label="Confirmar Senha" type="password" placeholder="Confirmar Senha"/> 
     <div class="btn-container">
-<ButtonComp name="PRÓXIMO" padding=".5rem" @click="$emit('pass')" />
+        <ButtonComp name="PRÓXIMO" padding=".5rem" @click="$emit('pass')" />
     </div>
 </template>
 <style scoped>

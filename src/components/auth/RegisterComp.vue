@@ -44,9 +44,7 @@ com a GoRoutes" />
             </div>
         </div>
         <div class="aside">
-            <div></div>
-            <div></div>
-            
+            <img src="/public/backgroundImage-register.png" alt="">
         </div>
     </div>
 </template>
@@ -67,6 +65,10 @@ com a GoRoutes" />
     justify-content: center;
     align-items: center;
 }
+.aside > img{
+    width: 100%;
+    height: 100%;
+}
 .aside > div{
     width: 100%;
     min-height: 40vh;
@@ -76,7 +78,6 @@ com a GoRoutes" />
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
     height: 100vh;
     width: 40%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -95,23 +96,18 @@ com a GoRoutes" />
 .hidden {
   display: none;
 }
-
 .slideOut {
   animation: slideOut 0.5s forwards;
 }
-
 .slideIn {
   animation: slideIn 0.5s forwards;
 }
-
 .slideInReverse {
   animation: slideInReverse 0.5s forwards;
 }
-
 .slideOutReverse {
   animation: slideOutReverse 0.5s forwards;
 }
-
 @keyframes slideOut {
   from {
     opacity: 1;
@@ -123,7 +119,6 @@ com a GoRoutes" />
     transform: translateX(-100%);
   }
 }
-
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -135,7 +130,6 @@ com a GoRoutes" />
     transform: translateX(0);
   }
 }
-
 @keyframes slideOutReverse {
   from {
     opacity: 1;
@@ -147,7 +141,6 @@ com a GoRoutes" />
     transform: translateX(100%);
   }
 }
-
 @keyframes slideInReverse {
   from {
     opacity: 0;
@@ -159,7 +152,6 @@ com a GoRoutes" />
     transform: translateX(0);
   }
 }
-
 @media screen and (max-width: 768px) {
     .container {
         flex-direction: column;
