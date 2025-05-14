@@ -2,5 +2,5 @@
 </script>
 
 <template>
-    <div>Dashboard</div>
+    <div>Dashboard a</div>
 </template>
