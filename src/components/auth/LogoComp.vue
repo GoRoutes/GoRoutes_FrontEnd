@@ -18,10 +18,12 @@ defineProps({
 .logo-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
+    margin: 0 auto;
 }
 .logo-container h1 {
     color: var(--primary-color);
+    text-align: start;
     font-size: 2.5rem;
     font-family: "Homenaje", sans-serif;
 }
@@ -30,12 +32,12 @@ defineProps({
 }
 .logo-text {
     margin-top: 5%;
-    width: 80%;
-    margin: 5% auto;
+    width: 85%;
+    margin: 2% auto;
     color: var(--primary-color);
     font-size: 1.8rem;
     font-weight: 500;
-    text-align:  center;
+    text-align:  start;
     font-family: "Homenaje", sans-serif;
 }
 .logo-subtext {

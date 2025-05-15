@@ -1,11 +1,13 @@
 <script setup>
 import ButtonComp from './ButtonComp.vue';
 import InputComp from './InputComp.vue';
+import CheckBoxComp from './CheckBoxComp.vue';
 </script>
 <template>
     <InputComp label="Foto de Perfil" type="file" placeholder="Foto de perfil"/>
     <InputComp label="Data de Nascimento" type="date" placeholder="Data de Nascimento"/> 
-    <InputComp label="Telefone" type="number" placeholder="Número de Telefone"/> 
+    <InputComp label="Telefone" type="number" placeholder="Número de Telefone"/>
+    <CheckBoxComp label="Ao clicar nesta caixa de seleção, você concorda com nossos Termos e reconhece ter lido nosso Aviso de Privacidade." /> 
     <div class="btn-container">
         <ButtonComp name="PRÓXIMO" padding=".5rem" @click="$emit('pass')" />
     </div>

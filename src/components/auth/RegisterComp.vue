@@ -5,6 +5,7 @@ import InputComp from "@/components/auth/InputComp.vue";
 import ButtonComp from "@/components/auth/ButtonComp.vue";
 import RegisterFirstComp from "./RegisterFirstComp.vue";
 import RegisterSecondComp from "./RegisterSecondComp.vue";
+import CheckBoxComp from "@/components/auth/CheckBoxComp.vue";
 
 const firstStep = ref(null)
 const secondStep = ref(null)
@@ -36,12 +37,15 @@ const back = () => {
         <div class="login-container">
             <LogoComp title="Comece sua jornada
 com a GoRoutes" />
+          <p class="bold-text">Crie sua conta</p>
+          <p class="min-text">Por favor, insira seus dados para criar uma conta.</p>
             <div class="form-container" ref="firstStep" :class="{ hidden: isSecondStepVisible }">
                                 <RegisterFirstComp @pass="next"/>
             </div>
             <div class="form-container" ref="secondStep" v-show="isSecondStepVisible">
                                 <RegisterSecondComp @back="back"/>
             </div>
+            <p class="have-account">Já possui conta? <a href="">Logar</a></p>
         </div>
         <div class="aside">
             <img src="/public/backgroundImage-register.png" alt="">
@@ -49,6 +53,32 @@ com a GoRoutes" />
     </div>
 </template>
 <style scoped>
+.have-account{
+    font-size: 1rem;
+    margin: 0 auto;
+    width: 85%;
+    text-align: start;
+    font-weight: 400;
+    color: var(--secondary-color);
+}
+.have-account > a{
+    color: var(--primary-color);
+}
+.bold-text{
+    font-size: 1.5rem;
+    margin: 0 auto;
+    width: 85%;
+    text-align: start;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+.min-text{
+    font-size: .9rem;
+    margin: 0 auto;
+    width: 85%;
+    font-weight: 400;
+    color: var(--secondary-color);
+}
 .container {
     display: flex;
     flex-direction: row;
@@ -77,7 +107,7 @@ com a GoRoutes" />
 .login-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     height: 100vh;
     width: 40%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

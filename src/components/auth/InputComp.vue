@@ -23,16 +23,16 @@ div {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin: .5rem auto;
+    margin: .25rem auto;
 }
 label{
     font-size: 1.2rem;
-    margin-bottom: .5rem;
+    margin-bottom: .25rem;
     color: var(--primary-color);
 }
 input{
     width: 100%;
-    height: 2.5rem;
+    height: 2.25rem;
     border-radius: 10px;
     border: 1px solid var(--primary-color);
     padding: 1rem;
