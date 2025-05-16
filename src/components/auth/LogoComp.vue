@@ -6,9 +6,9 @@
         <h1>GoRoutes</h1>
     </div>
     <div class="text-container">
-        <h1 class="logo-text">Comece sua jornada com a GoRoutes</h1>
-        <h3 class="logo-subtext">Crie sua conta</h3>
-        <p class="logo-subtext">Por favor,insira seus dados para criar uma conta.</p>
+        <h1 class="logo-text">Aqui você viaja com conforto e segurança</h1>
+        <h3 class="logo-subtext">Acesse sua conta</h3>
+        <p class="logo-subtext">Por favor,insira seus dados para acessar.</p>
     </div>
 </template>
 <style scoped>
