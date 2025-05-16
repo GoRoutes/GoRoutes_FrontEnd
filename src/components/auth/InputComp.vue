@@ -12,13 +12,7 @@ defineProps({
 const text = ref("");
 </script>
 <template>
-    <div v-if="type == 'checkbox'">
-    <div class="checkbox">
-        <input :type="type" :placeholder="placeholder" v-model="text" />
-        <label for="">{{ label }}</label></div>
-        <a :href="subtextLink" v-if="haveSubtext" class="subtext"> {{ subtext }}</a>
-    </div>
-    <div v-else>
+    <div>
         <label for="">{{ label }}</label>
         <input :type="type" :placeholder="placeholder" v-model="text" />
         <a :href="subtextLink" v-if="haveSubtext" class="subtext"> {{ subtext }}</a>
@@ -45,6 +39,7 @@ input {
     border-radius: 8px;
     border: 1px solid #00000080;
     padding: 1rem 0.5rem;
+    color: black
 }
 
 input::placeholder {
@@ -53,20 +48,11 @@ input::placeholder {
 }
 
 .subtext {
-    font-size: 1rem;
-    color: var(--primary-color);
+    font-size: 0.8rem;
     margin-top: .25rem;
     text-align: end;
     text-decoration: none;
     cursor: pointer;
 }
 
-.checkbox{
-    display: flex;
-    flex-direction: row;
-    align-items: center ;
-}
-.checkbox input{
-    width: unset;
-}
 </style>

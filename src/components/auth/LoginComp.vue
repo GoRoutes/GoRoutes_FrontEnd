@@ -9,10 +9,10 @@ import BgImage from "./BgImage.vue";
         <div class="login-container">
             <LogoComp />
             <div class="form-container">
-                <InputComp label="Email" type="email" placeholder="Enter your email" v-model="email"
+                <InputComp label="Endereço do email" type="email" placeholder="Enter your email" v-model="email"
                     haveSubtext="false" />
-                <InputComp label="Password" type="password" placeholder="Enter your password" v-model="password"
-                    haveSubtext="true" subtext="Forgot password?" />
+                <InputComp label="Senha" type="password" placeholder="Enter your password" v-model="password"
+                    haveSubtext="true" subtext="Esqueci minha senha" style="color: #353DCCE5 !important;"/>
                 <ButtonComp name="Criar Conta" @click="handleLogin" padding=".5rem" />
             </div>
         </div>
@@ -29,7 +29,7 @@ import BgImage from "./BgImage.vue";
     flex-direction: row;
     height: 100vh;
     min-width: 100%;
-    padding-left: 5rem;
+    padding-left: 10rem;
 }
 
 .aside {
@@ -53,9 +53,9 @@ import BgImage from "./BgImage.vue";
     display: flex;
     flex-direction: column;
     align-items: baseline;
-    height: calc(100vh - 2rem);
+    height: calc(100vh - 7rem);
     width: 33%;
-    margin-top: 2rem;
+    margin-top: 7rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
