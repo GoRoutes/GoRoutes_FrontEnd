@@ -31,6 +31,7 @@ const back = () => {
     }, 0)
   }, 500)
 }
+
 </script>
 <template>
     <div class="container">

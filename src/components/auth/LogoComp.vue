@@ -19,16 +19,17 @@ defineProps({
     display: flex;
     align-items: center;
     /* justify-content: center; */
-    margin: 0 auto;
+    margin: 0 5%;
 }
 .logo-container h1 {
     color: var(--primary-color);
     text-align: start;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-family: "Homenaje", sans-serif;
 }
 .logo {
-    width: 80%;
+    width: 22%;
+    /* height: 30%; */
 }
 .logo-text {
     margin-top: 5%;

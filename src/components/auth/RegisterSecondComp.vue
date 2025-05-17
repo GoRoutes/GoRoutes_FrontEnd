@@ -21,7 +21,7 @@ import CheckBoxComp from './CheckBoxComp.vue';
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 1rem auto 0 auto;
+    /* margin: 1rem auto 0 auto; */
 }
 .btn{
     transition: all 0.3s ease-in-out;
