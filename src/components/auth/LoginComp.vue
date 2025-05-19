@@ -11,11 +11,11 @@ import captionComp from "./captionComp.vue";
             <LogoComp />
             <div class="form-container">
                 <InputComp label="Endereço do email" type="email" placeholder="Enter your email" v-model="email"
-                    haveSubtext="false" />
+                    haveSubtext="false" padding-props="1.3rem" />
                 <InputComp label="Senha" type="password" placeholder="Enter your password" v-model="password"
-                    haveSubtext="true" subtext="Esqueci minha senha" style="color: #353DCCE5 !important;"/>
-                <ButtonComp name="Criar Conta" @click="handleLogin" padding=".5rem" />
-                <captionComp pCaption="Ainda não é nosso cliente?" txtLink="Cadastre-se"/>
+                    haveSubtext="true" subtext="Esqueci minha senha" style="color: #353DCCE5 !important;" padding-props="1.3rem" />
+                <ButtonComp name="LOGIN" @click="handleLogin" padding=".5rem" />
+                <captionComp pCaption="Ainda não é nosso cliente?" txtLink="Cadastre-se" />
             </div>
         </div>
         <div class="aside">
@@ -58,14 +58,12 @@ import captionComp from "./captionComp.vue";
     height: calc(100vh - 7rem);
     width: 33%;
     margin-top: 7rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
     width: 100%;
     max-width: 400px;
     border-radius: 20px;

@@ -1,10 +1,10 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { defineProps } from "vue";
 defineProps({
     "pCaption": String,
     "link": String,
     "txtLink": String,
-    });
+});
 </script>
 <template>
     <div class="caption">
@@ -13,15 +13,17 @@ defineProps({
     </div>
 </template>
 <style scoped>
-.caption{
+.caption {
     display: flex;
 }
-.caption p{
+
+.caption p {
     font-size: 0.8rem;
     margin-top: .25rem;
     color: var(--comment-color);
 }
-.caption a{
+
+.caption a {
     font-size: 0.8rem;
     margin-top: .25rem;
     margin-left: 3px;

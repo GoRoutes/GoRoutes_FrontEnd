@@ -24,22 +24,25 @@ defineProps({
 }
 
 .logo-container img {
-    width: 8rem;
+    width: 8em;
 }
 
 .logo-container h1 {
     color: var(--logo-color);
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: 500;
+    margin-left: -12px;
     font-family: "Homenaje", sans-serif;
 }
 
 .logo {
     width: 80%;
+    margin-left: -12px;
 }
 
 .text-container {
     width: 100%;
+    
 }
 
 .logo-text {
@@ -66,7 +69,7 @@ h3.logo-subtext {
 p.logo-subtext {
     color: var(--comment-color);
     font-weight: 400;
-    font-size: 0.8rem;
+    font-size: 1rem;
     text-align: left;
     font-family: "IBM Plex Sans", sans-serif;
     margin-bottom: 0.5rem;

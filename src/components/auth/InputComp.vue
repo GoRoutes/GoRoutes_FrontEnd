@@ -1,21 +1,22 @@
 <script setup>
 import { ref, defineProps } from "vue";
-defineProps({
-    "label": String,
-    "type": String,
-    "placeholder": String,
-    "value": String,
-    "haveSubtext": Boolean,
-    "subtext": String,
-    "subtextLink": String,
+const props = defineProps({
+    label: String,
+    type: String,
+    placeholder: String,
+    value: String,
+    haveSubtext: Boolean,
+    subtext: String,
+    subtextLink: String,
+    paddingProps: String,
 });
 const text = ref("");
 </script>
 <template>
     <div>
-        <label for="">{{ label }}</label>
-        <input :type="type" :placeholder="placeholder" v-model="text" />
-        <a :href="subtextLink" v-if="haveSubtext" class="subtext"> {{ subtext }}</a>
+        <label for="">{{ props.label }}</label>
+        <input :type="props.type" :placeholder="props.placeholder" v-model="text" :style="{padding: props.paddingProps}" />
+        <a :href="props.subtextLink" v-if="props.haveSubtext" class="subtext"> {{ props.subtext }}</a>
     </div>
 </template>
 <style scoped>
@@ -27,7 +28,7 @@ div {
 }
 
 label {
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin-bottom: .3rem;
     font-weight: 500;
     color: var(--primary-color);
@@ -43,8 +44,10 @@ input {
 }
 
 input::placeholder {
-    font-size: 0.8rem;
+    font-size:1rem;
     color: gray;
+    text-align: left;
+
 }
 
 .subtext {
