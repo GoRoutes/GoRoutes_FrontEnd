@@ -13,4 +13,8 @@
     top: 0;
     right: 0;
 }
+.imgBg img{
+  height: 100%;
+  width: 100%;
+}
 </style>

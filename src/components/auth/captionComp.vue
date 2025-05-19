@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { defineProps } from "vue";
 defineProps({
     "pCaption": String,
     "link": String,

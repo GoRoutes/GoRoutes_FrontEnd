@@ -14,7 +14,7 @@ import captionComp from "./captionComp.vue";
                     haveSubtext="false" />
                 <InputComp label="Senha" type="password" placeholder="Enter your password" v-model="password"
                     haveSubtext="true" subtext="Esqueci minha senha" style="color: #353DCCE5 !important;"/>
-                <ButtonComp name="Criar Conta" @click="handleLogin" padding=".5rem" />
+                <ButtonComp name="Logar" @click="handleLogin" padding=".5rem" />
                 <captionComp pCaption="Ainda não é nosso cliente?" txtLink="Cadastre-se"/>
             </div>
         </div>
@@ -58,13 +58,11 @@ import captionComp from "./captionComp.vue";
     height: calc(100vh - 7rem);
     width: 33%;
     margin-top: 7rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     width: 100%;
     max-width: 400px;

@@ -21,7 +21,7 @@
 }
 
 .logo-container img {
-    width: 8rem;
+    width: 9rem;
 }
 
 .logo-container h1 {
