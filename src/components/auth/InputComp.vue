@@ -1,21 +1,22 @@
 <script setup>
 import { ref, defineProps } from "vue";
-defineProps({
-    "label": String,
-    "type": String,
-    "placeholder": String,
-    "value": String,
-    "haveSubtext": Boolean,
-    "subtext": String,
-    "subtextLink": String,
+const props = defineProps({
+    label: String,
+    type: String,
+    placeholder: String,
+    value: String,
+    haveSubtext: Boolean,
+    subtext: String,
+    subtextLink: String,
+    paddingProps: String,
 });
 const text = ref("");
 </script>
 <template>
     <div>
-        <label for="">{{ label }}</label>
-        <input :type="type" :placeholder="placeholder" v-model="text" />
-        <a :href="subtextLink" v-if="haveSubtext" class="subtext"> {{ subtext }}</a>
+        <label for="">{{ props.label }}</label>
+        <input :type="props.type" :placeholder="props.placeholder" v-model="text" :style="{padding: props.paddingProps}" />
+        <a :href="props.subtextLink" v-if="props.haveSubtext" class="subtext"> {{ props.subtext }}</a>
     </div>
 </template>
 <style scoped>
@@ -25,24 +26,36 @@ div {
     width: 100%;
     margin: .5rem auto;
 }
-label{
-    font-size: 1.2rem;
-    margin-bottom: .5rem;
-    color: var(--primary-color);
-}
-input{
-    width: 100%;
-    height: 2.5rem;
-    border-radius: 10px;
-    border: 1px solid var(--primary-color);
-    padding: 1rem;
-}
-.subtext{
+
+label {
     font-size: 1rem;
+    margin-bottom: .3rem;
+    font-weight: 500;
     color: var(--primary-color);
+}
+
+input {
+    width: 100%;
+    height: 2rem;
+    border-radius: 8px;
+    border: 1px solid #00000080;
+    padding: 1rem 0.5rem;
+    color: black
+}
+
+input::placeholder {
+    font-size:1rem;
+    color: gray;
+    text-align: left;
+
+}
+
+.subtext {
+    font-size: 0.8rem;
     margin-top: .25rem;
     text-align: end;
     text-decoration: none;
     cursor: pointer;
 }
+
 </style>

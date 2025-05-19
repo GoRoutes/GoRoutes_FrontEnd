@@ -12,6 +12,8 @@ defineProps({
     </div>
 </template>
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
 div {
     display: flex;
     justify-content: center;
@@ -19,16 +21,21 @@ div {
     width: 100%;
     margin: 1rem auto 0 auto;
 }
-.btn{
+
+.btn {
     transition: all 0.3s ease-in-out;
     background-color: var(--primary-color);
     color: #fff;
-    border-radius: 10px;
+    border-radius: 8px;
     border: none;
-    padding: .25rem;
+    padding: .30rem .25rem;
     width: 100%;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
 }
-.btn:hover{
+
+.btn:hover {
     background-color: #fff;
     color: var(--primary-color);
     cursor: pointer;
