@@ -6,7 +6,11 @@ import InputComp from './InputComp.vue';
     <InputComp label="Nome Completo" type="text" placeholder="Nome Completo"/> 
     <InputComp label="Email" type="email" placeholder="Email"/> 
     <InputComp label="Senha" type="password" placeholder="Senha"/> 
-    <InputComp label="Confirmar Senha" type="password" placeholder="Confirmar Senha"/> 
+    <InputComp label="Confirmar Senha" type="password" placeholder="Confirmar Senha"/>
+    <div class="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <label for="checkbox">Ao clicar nesta caixa de seleção, você concorda com nossos Termos e reconhece ter lido nosso Aviso de Privacidade.</label>
+    </div> 
     <div class="btn-container">
         <ButtonComp name="PRÓXIMO" padding=".5rem" @click="$emit('pass')" />
     </div>
@@ -17,7 +21,7 @@ import InputComp from './InputComp.vue';
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 1rem auto 0 auto;
+    margin: 0 auto 0 auto;
 }
 .btn{
     transition: all 0.3s ease-in-out;
@@ -32,6 +36,25 @@ import InputComp from './InputComp.vue';
     background-color: #fff;
     color: var(--primary-color);
     cursor: pointer;
+}
+.checkbox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+}
+.checkbox > input{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+    margin-right: .5rem;
+}
+.checkbox > label{
+    font-size: .8rem;
+    color: var(--comment-color);
 }
 div {
     display: flex;

@@ -1,8 +1,11 @@
-<script>
+<script setup>
+defineProps({
+  imagesrc: String,
+})
 </script>
 <template>
   <div class="imgBg">
-    <img src="../../assets/images/BackgroundImgLogin.png" alt="">
+    <img :src=imagesrc alt="">
   </div>
 </template>
 <style>

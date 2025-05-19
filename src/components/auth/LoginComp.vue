@@ -8,7 +8,7 @@ import captionComp from "./captionComp.vue";
 <template>
     <div class="container">
         <div class="login-container">
-            <LogoComp />
+            <LogoComp title="Aqui você viaja com conforto e segurança" subtitle="Acesse sua conta" subtext="Por favor,insira seus dados para acessar." />
             <div class="form-container">
                 <InputComp label="Endereço do email" type="email" placeholder="Enter your email" v-model="email"
                     haveSubtext="false" padding-props="1.3rem" />
@@ -23,7 +23,7 @@ import captionComp from "./captionComp.vue";
             <div></div>
         </div>
     </div>
-    <BgImage />
+    <BgImage imagesrc="\src\assets\images\BackgroundImgLogin.png" />
 </template>
 <style scoped>
 .container {

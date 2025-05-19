@@ -1,6 +1,8 @@
 <script setup>
 defineProps({
-    "title": String
+    "title": String,
+    "subtitle": String,
+    "subtext": String,
 });
 </script>
 <template>
@@ -9,9 +11,9 @@ defineProps({
         <h1>GoRoutes</h1>
     </div>
     <div class="text-container">
-        <h1 class="logo-text">Aqui você viaja com conforto e segurança</h1>
-        <h3 class="logo-subtext">Acesse sua conta</h3>
-        <p class="logo-subtext">Por favor,insira seus dados para acessar.</p>
+        <h1 class="logo-text">{{ title }}</h1>
+        <h3 class="logo-subtext">{{ subtitle }}</h3>
+        <p class="logo-subtext">{{ subtext }}</p>
     </div>
 </template>
 <style scoped>
@@ -48,7 +50,7 @@ defineProps({
 .logo-text {
     margin-top: 0;
     color: var(--primary-color);
-    font-size: 2.8rem;
+    font-size: 3rem;
     font-weight: 400;
     text-align: left;
     font-family: "Homenaje", sans-serif;
@@ -62,7 +64,7 @@ h3.logo-subtext {
     font-size: 1.5rem;
     text-align: left;
     margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
     font-family: "IBM Plex Sans", sans-serif;
 }
 
