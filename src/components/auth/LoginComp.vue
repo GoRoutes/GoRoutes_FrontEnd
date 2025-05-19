@@ -3,6 +3,7 @@ import InputComp from "./InputComp.vue";
 import ButtonComp from "./ButtonComp.vue";
 import LogoComp from "./LogoComp.vue";
 import BgImage from "./BgImage.vue";
+import captionComp from "./captionComp.vue";
 </script>
 <template>
     <div class="container">
@@ -14,6 +15,7 @@ import BgImage from "./BgImage.vue";
                 <InputComp label="Senha" type="password" placeholder="Enter your password" v-model="password"
                     haveSubtext="true" subtext="Esqueci minha senha" style="color: #353DCCE5 !important;"/>
                 <ButtonComp name="Criar Conta" @click="handleLogin" padding=".5rem" />
+                <captionComp pCaption="Ainda não é nosso cliente?" txtLink="Cadastre-se"/>
             </div>
         </div>
         <div class="aside">
