@@ -25,24 +25,34 @@ div {
     width: 100%;
     margin: .5rem auto;
 }
-label{
-    font-size: 1.2rem;
-    margin-bottom: .5rem;
+
+label {
+    font-size: 0.8rem;
+    margin-bottom: .3rem;
+    font-weight: 500;
     color: var(--primary-color);
 }
-input{
+
+input {
     width: 100%;
-    height: 2.5rem;
-    border-radius: 10px;
-    border: 1px solid var(--primary-color);
-    padding: 1rem;
+    height: 2rem;
+    border-radius: 8px;
+    border: 1px solid #00000080;
+    padding: 1rem 0.5rem;
+    color: black
 }
-.subtext{
-    font-size: 1rem;
-    color: var(--primary-color);
+
+input::placeholder {
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.subtext {
+    font-size: 0.8rem;
     margin-top: .25rem;
     text-align: end;
     text-decoration: none;
     cursor: pointer;
 }
+
 </style>

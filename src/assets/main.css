@@ -1,9 +1,12 @@
 @import 'tailwindcss';
 @import url('https://fonts.googleapis.com/css2?family=Homenaje&display=swap');
 
+
 :root {
   --primary-color: #022840;
   --secondary-color: #6264A0;
+  --logo-color: #050D2D;
+  --comment-color: #353DCC;
 }
 
 *{
