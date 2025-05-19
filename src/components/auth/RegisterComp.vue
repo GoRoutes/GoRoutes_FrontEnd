@@ -3,6 +3,7 @@ import { ref } from "vue";
 import LogoComp from "@/components/auth/LogoComp.vue";
 import RegisterFirstComp from "./RegisterFirstComp.vue";
 import RegisterSecondComp from "./RegisterSecondComp.vue";
+import BgImage from "./BgImage.vue";
 
 const firstStep = ref(null)
 const secondStep = ref(null)
@@ -31,6 +32,24 @@ const back = () => {
 </script>
 <template>
   <div class="container">
+        <div class="login-container">
+            <LogoComp title="Comece sua jornada com a GoRoutes" subtitle="Crie sua conta" subtext="Por favor, insira seus dados para criar uma conta."/>
+            <div class="form-container" ref="firstStep" :class="{ hidden: isSecondStepVisible }">
+        <RegisterFirstComp @pass="next" />
+      </div>
+      <div class="form-container" ref="secondStep" v-show="isSecondStepVisible">
+        <RegisterSecondComp @back="back" />
+      </div>
+        </div>
+        <div class="aside">
+            <div></div>
+            <div></div>
+        </div>  
+      </div>
+      <div class="a">
+      <BgImage imagesrc="\public\backgroundImage-register.png" />
+      </div>
+  <!-- <div class="container">
     <div class="login-container">
       <LogoComp title="Comece sua jornada
 com a GoRoutes" />
@@ -44,59 +63,51 @@ com a GoRoutes" />
     <div class="aside">
       <img src="/public/backgroundImage-register.png" alt="">
     </div>
-  </div>
+  </div> -->
 </template>
 <style scoped>
 .container {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-  min-width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    min-width: 100%;
+    padding: 0 4rem 0 4rem;
 }
 
 .aside {
-  margin: auto;
-  gap: 1rem;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.aside>img {
-  width: 100%;
-  height: 100%;
+    margin: auto;
+    gap: 1rem;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .aside>div {
-  width: 100%;
-  min-height: 40vh;
-  border-radius: 20px;
+    width: 100%;
+    min-height: 40vh;
+    border-radius: 20px;
 }
 
 .login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  width: 40%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    height: calc(100vh - 7rem);
+    width: 40%;
+    /* margin-top: 2%; */
 }
 
 .form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 400px;
-  padding: 0 2rem 1rem 2rem;
-  border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    /* max-width: 400px; */
+    border-radius: 20px;
 }
-
 .hidden {
   display: none;
 }
@@ -169,11 +180,14 @@ com a GoRoutes" />
   .container {
     flex-direction: column;
     height: auto;
+    padding: 0;
   }
-
+  .a{
+    display: none;
+  }
   .login-container {
     width: 100%;
-    padding: 2rem 0;
+    padding: 3rem;
   }
 
   .aside {
