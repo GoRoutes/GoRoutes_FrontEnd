@@ -1,5 +1,6 @@
 <script setup>
-import {RegisterComp}  from '@/components';
+
+import RegisterComp from '@/components/auth/register/RegisterComp.vue';
 </script>
 <template>
     <RegisterComp />
