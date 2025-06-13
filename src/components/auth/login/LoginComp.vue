@@ -1,18 +1,49 @@
 <script setup>
-import { InputComp, ButtonComp, LogoComp } from "../..";
-import BgImage from "../BgImage.vue";
-import captionComp from "./CaptionComp.vue";
+import BgImage from "@/components/auth/BgImage.vue";
+import captionComp from "@/components/auth/login/CaptionComp.vue";
+import { InputComp, ButtonComp, LogoComp } from "@/components";
+import { useAuthStore } from "@/stores";
+
+import { reactive } from "vue";
+
+const authStore = useAuthStore();
+
+const login = reactive({
+    username: "",
+    password: ""
+});
+
+const handleLogin = () => {
+  authStore.login(login.username, login.password);
+};
+
 </script>
 <template>
     <div class="container">
         <div class="login-container">
             <LogoComp :variant="2" />
             <div class="form-container">
-                <InputComp label="Endereço do email" type="email" placeholder="Enter your email" v-model="email"
-                    haveSubtext="false" padding-props="1.3rem" />
-                <InputComp label="Senha" type="password" placeholder="Enter your password" v-model="password"
-                    haveSubtext="true" subtext="Esqueci minha senha" style="color: #353DCCE5 !important;"
-                    padding-props="1.3rem" />
+                <InputComp
+                    label="Nome de usuário"
+                    type="text"
+                    placeholder="Enter your username"
+                    v-model="login.username"
+                    :haveSubtext="false"
+                    padding-props="1.3rem"
+                />
+                <InputComp
+                    label="Senha"
+                    type="password"
+                    placeholder="Enter your password"
+                    v-model="login.password"
+                    :haveSubtext="true"
+                    subtext="Esqueci minha senha"
+                    style="color: #353DCCE5 !important;"
+                    padding-props="1.3rem"
+                />
+                <div v-if="authStore.state.error" class="error-message">
+                    {{ authStore.state.message }}
+                </div>
                 <ButtonComp name="LOGIN" @click="handleLogin" padding=".5rem" />
                 <captionComp pCaption="Ainda não é nosso cliente?" txtLink="Cadastre-se" link="/blank/register" />
             </div>
@@ -66,6 +97,14 @@ import captionComp from "./CaptionComp.vue";
     width: 100%;
     max-width: 400px;
     border-radius: 20px;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    width: 100%;
 }
 
 @media screen and (max-width: 768px) {

@@ -1,12 +1,12 @@
 <template>
   <div>
     <button class="toggle-btn" @click="toggleSidebar">☰</button>
-    
+
     <div class="sidebar" :class="{ show: isSidebarVisible }">
       <div class="menu-category" v-for="(category, index) in menuItems" :key="index">
-        <div 
-          class="menu-item" 
-          :class="{ active: category.active }" 
+        <div
+          class="menu-item"
+          :class="{ active: category.active }"
           @click="category.name === 'Configurações' ? activateCategory(index) : toggleCategory(index)">
           <div class="menu-icon">
             <component :is="category.icon" />
@@ -16,10 +16,10 @@
         </div>
         <Transition name="accordion">
           <div class="submenu" v-if="category.expanded && category.subItems.length > 0">
-            <a href="#" 
-               class="submenu-item" 
+            <a href="#"
+               class="submenu-item"
                :class="{ active: subItem.active }"
-               v-for="(subItem, subIndex) in category.subItems" 
+               v-for="(subItem, subIndex) in category.subItems"
                :key="subIndex"
                @click.prevent="activateSubItem(index, subIndex)">
               <span>{{ subItem.name }}</span>
@@ -32,19 +32,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, markRaw } from 'vue';
 
 import CarIcon from "vue-material-design-icons/Car.vue";
 import AccountIcon from "vue-material-design-icons/Account.vue";
 import MapMarkerPathIcon from "vue-material-design-icons/MapMarkerPath.vue";
 import CogIcon from "vue-material-design-icons/Cog.vue";
-import SettingsIcon from "vue-material-design-icons/Cog.vue";
 
 const isSidebarVisible = ref(true);
 const menuItems = ref([
   {
     name: 'Veículos',
-    icon: CarIcon,
+    icon: markRaw(CarIcon),
     expanded: false,
     active: false,
     subItems: [
@@ -54,7 +53,7 @@ const menuItems = ref([
   },
   {
     name: 'Clientes',
-    icon: CogIcon,
+    icon: markRaw(CogIcon),
     expanded: false,
     active: false,
     subItems: [
@@ -64,7 +63,7 @@ const menuItems = ref([
   },
   {
     name: 'Motoristas',
-    icon: AccountIcon,
+    icon: markRaw(AccountIcon),
     expanded: false,
     active: false,
     subItems: [
@@ -74,7 +73,7 @@ const menuItems = ref([
   },
   {
     name: 'Rotas',
-    icon: MapMarkerPathIcon,
+    icon: markRaw(MapMarkerPathIcon),
     expanded: false,
     active: false,
     subItems: [
@@ -85,7 +84,7 @@ const menuItems = ref([
   },
   {
     name: 'Configurações',
-    icon: SettingsIcon,
+    icon: markRaw(CogIcon),
     expanded: false,
     active: false,
     subItems: []
@@ -98,7 +97,7 @@ const toggleSidebar = () => {
 
 const toggleCategory = (index) => {
   menuItems.value[index].expanded = !menuItems.value[index].expanded;
-  
+
   // Close other categories when opening a new one
   menuItems.value.forEach((category, i) => {
     if (i !== index) {
@@ -124,7 +123,7 @@ const activateSubItem = (categoryIndex, subItemIndex) => {
       subItem.active = false;
     });
   });
-  
+
   // Activate selected subitem
   menuItems.value[categoryIndex].subItems[subItemIndex].active = true;
 };
@@ -253,11 +252,11 @@ const activateSubItem = (categoryIndex, subItemIndex) => {
     z-index: 100;
     transition: left 0.3s ease;
   }
-  
+
   .sidebar.show {
     left: 0;
   }
-  
+
   .toggle-btn {
     display: block;
   }
