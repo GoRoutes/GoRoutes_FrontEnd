@@ -1,51 +1,68 @@
 <script setup>
-import { ref } from 'vue'
+import { reactive, watch } from 'vue'
 import { InputComp } from "../.."
-import { showErrorToast } from '@/utils/toast.js'
 
-const email = ref('')
-const phone = ref('')
-const cpf = ref('')
-const birthDate = ref('')
-const photo = ref(null)
+const props = defineProps({
+  initialData: {
+    type: Object,
+    required: true
+  }
+})
 
-// Removido o useToast direto, pois agora usamos showErrorToast utilitário
+const emit = defineEmits(['update:data'])
 
-const handleFileChange = (event) => {
-    const file = event.target.files[0]
+const data = reactive({
+  email: props.initialData.email || '',
+  telephone: props.initialData.telephone || '',
+  cpf: props.initialData.cpf || '',
+  data_of_birth: props.initialData.data_of_birth || '',
+  photo: null
+})
 
-    if (!file) return
-
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png']
-
-    if (!validTypes.includes(file.type)) {
-        showErrorToast('Tipo de arquivo inválido. Use PNG ou JPG.', {
-            sound: true,
-        })
-        photo.value = null
-    } else {
-        photo.value = file
-    }
-}
+watch(data, (newValue) => {
+  emit('update:data', { ...newValue })
+}, { deep: true })
 </script>
 
 
 
 <template>
     <div class="form-container">
-        <InputComp label="Endereço do email" type="email" placeholder="Enter your email" v-model="email"
-            haveSubtext="false" padding-props="1.3rem" />
-        <InputComp label="Telefone" type="number" placeholder="Enter your phone number" v-model="phone"
-            haveSubtext="false" padding-props="1.3rem" />
-        <InputComp label="CPF" type="number" placeholder="Enter your CPF" v-model="cpf" haveSubtext="false"
-            padding-props="1.3rem" />
-
-        <div class="row">
-            <InputComp label="Data de Nascimento" type="date" placeholder="Enter your date of birth" v-model="birthDate"
-                haveSubtext="true" style="color: #353DCCE5 !important;" padding-props="1.3rem" />
-            <InputComp label="Foto" type="file" placeholder="Upload your photo" @change="handleFileChange"
-                haveSubtext="true" style="color: #353DCCE5 !important;" padding-props="1.3rem" />
-        </div>
+        <InputComp
+            label="Email"
+            type="email"
+            placeholder="Digite seu email"
+            v-model="data.email"
+            :haveSubtext=false
+            padding-props="1.3rem"
+        />
+        <InputComp
+            label="Telefone"
+            type="tel"
+            placeholder="Digite seu telefone"
+            v-model="data.telephone"
+            :haveSubtext=false
+            padding-props="1.3rem"
+        />
+        <InputComp
+            label="CPF"
+            type="text"
+            placeholder="Digite seu CPF"
+            v-model="data.cpf"
+            :haveSubtext=false
+            padding-props="1.3rem"
+        />
+        <InputComp
+            label="Data de Nascimento"
+            type="date"
+            placeholder="Digite sua data de nascimento"
+            v-model="data.data_of_birth"
+            :haveSubtext=true
+            style="color: #353DCCE5 !important;"
+            padding-props="1.3rem"
+        />
+        <!-- <InputComp label="Foto" type="file" placeholder="Upload your photo" @change="handleFileChange"
+            :haveSubtext=true style="color: #353DCCE5 !important;" padding-props="1.3rem" /> -->
     </div>
 </template>
 

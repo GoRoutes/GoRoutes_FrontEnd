@@ -1,21 +1,33 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { defineEmits } from "vue";
+
 const props = defineProps({
     label: String,
     type: String,
     placeholder: String,
-    value: String,
+    modelValue: String,
     haveSubtext: Boolean,
     subtext: String,
     subtextLink: String,
     paddingProps: String,
 });
-const text = ref("");
+
+const emit = defineEmits(['update:modelValue']);
+
+const updateValue = (event) => {
+    emit('update:modelValue', event.target.value);
+};
 </script>
 <template>
     <div>
         <label for="">{{ props.label }}</label>
-        <input :type="props.type" :placeholder="props.placeholder" v-model="text" :style="{padding: props.paddingProps}" />
+        <input
+            :type="props.type"
+            :placeholder="props.placeholder"
+            :value="modelValue"
+            @input="updateValue"
+            :style="{padding: props.paddingProps}"
+        />
         <a :href="props.subtextLink" v-if="props.haveSubtext" class="subtext"> {{ props.subtext }}</a>
     </div>
 </template>
