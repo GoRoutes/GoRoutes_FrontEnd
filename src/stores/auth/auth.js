@@ -31,6 +31,15 @@ export const useAuthStore = defineStore("auth", () => {
     }
   }
 
+  async function register(data) {
+    try {
+      const response = await AuthService.registerResponsible(data);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
   async function logout() {
     state.token = '';
     state.isLogged = false;
@@ -43,6 +52,7 @@ export const useAuthStore = defineStore("auth", () => {
   return {
     state,
     login,
-    logout
+    logout,
+    register
   }
 });

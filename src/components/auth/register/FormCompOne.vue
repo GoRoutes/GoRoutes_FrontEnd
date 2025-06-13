@@ -1,12 +1,29 @@
 <script setup>
 import { InputComp } from "../..";
-import { ref } from 'vue'
+import { reactive, watch } from 'vue'
 
-const password = ref('')
-const userType = ref('') // 'responsible' ou 'passenger'
+const props = defineProps({
+  initialData: {
+    type: Object,
+    required: true
+  }
+})
+
+const emit = defineEmits(['update:data'])
+
+const data = reactive({
+  username: props.initialData.username || "",
+  name: props.initialData.name || "",
+  password: props.initialData.password || "",
+  userType: props.initialData.userType || ""
+})
+
+watch(data, (newValue) => {
+  emit('update:data', { ...newValue })
+}, { deep: true })
 
 const selectUserType = (type) => {
-  userType.value = type
+  data.userType = type
 }
 </script>
 
@@ -15,20 +32,25 @@ const selectUserType = (type) => {
     <InputComp
       label="Username"
       type="text"
-      placeholder="Enter your username"
-      v-model="password"
-      haveSubtext="true"
-      style="color: #353DCCE5 !important;"
+      placeholder="Digite seu username"
+      v-model="data.username"
+      :haveSubtext=false
+      padding-props="1.3rem"
+    />
+    <InputComp
+      label="Nome Completo"
+      type="text"
+      placeholder="Digite seu nome completo"
+      v-model="data.name"
+      :haveSubtext=false
       padding-props="1.3rem"
     />
     <InputComp
       label="Senha"
       type="password"
-      placeholder="Enter your password"
-      v-model="password"
-      haveSubtext="true"
-      subtext="Esqueci minha senha"
-      style="color: #353DCCE5 !important;"
+      placeholder="Digite sua senha"
+      v-model="data.password"
+      :haveSubtext=false
       padding-props="1.3rem"
     />
     <div class="user-type-section">
@@ -37,7 +59,7 @@ const selectUserType = (type) => {
         <button
           type="button"
           class="user-type-button"
-          :class="{ active: userType === 'responsible' }"
+          :class="{ active: data.userType === 'responsible' }"
           @click="selectUserType('responsible')"
         >
           <div class="icon-container">
@@ -54,7 +76,7 @@ const selectUserType = (type) => {
         <button
           type="button"
           class="user-type-button"
-          :class="{ active: userType === 'passenger' }"
+          :class="{ active: data.userType === 'passenger' }"
           @click="selectUserType('passenger')"
         >
           <div class="icon-container">
@@ -178,17 +200,17 @@ const selectUserType = (type) => {
   .user-type-button {
     padding: 0.875rem;
   }
-  
+
   .icon-container {
     width: 40px;
     height: 40px;
     margin-right: 0.75rem;
   }
-  
+
   .button-title {
     font-size: 0.925rem;
   }
-  
+
   .button-subtitle {
     font-size: 0.8rem;
   }

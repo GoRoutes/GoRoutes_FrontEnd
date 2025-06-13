@@ -2,11 +2,20 @@
 defineProps({
     'name': String,
     'padding': String,
+    'disabled': {
+        type: Boolean,
+        default: false
+    }
 });
 </script>
 <template>
     <div>
-        <button class="btn" @click="$emit('click')" :style="{ padding: padding }">
+        <button
+            class="btn"
+            @click="$emit('click')"
+            :style="{ padding: padding }"
+            :disabled="disabled"
+        >
             {{ name }}
         </button>
     </div>
@@ -31,16 +40,21 @@ div {
     padding: .30rem .25rem;
     width: 100%;
     font-family: "IBM Plex Sans", sans-serif;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);   
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 2px solid transparent;
     font-size: 0.8rem;
     font-weight: 700;
 }
 
-.btn:hover {
+.btn:hover:not(:disabled) {
     background-color: #fff;
-    border: 2px solid var(--primary-color); 
+    border: 2px solid var(--primary-color);
     color: var(--primary-color);
     cursor: pointer;
+}
+
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 </style>
