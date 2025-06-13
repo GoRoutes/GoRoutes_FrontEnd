@@ -5,8 +5,30 @@ import BgImage from "../BgImage.vue"
 import captionComp from "../login/CaptionComp.vue"
 import FormCompOne from "./FormCompOne.vue"
 import FormCompTwo from "./FormCompTwo.vue"
+import { useAuthStore } from '@/stores'
+import { useRouter } from 'vue-router'
+import { showErrorToast, showSuccessToast } from '@/utils/toast'
+import { AuthService } from '@/services'
 
 const currentStep = ref(1)
+const authStore = useAuthStore()
+const router = useRouter()
+const isRegistering = ref(false)
+
+// Dados do formulário
+const formOneData = ref({
+    username: '',
+    password: '',
+    userType: '',
+    name: ''
+})
+
+const formTwoData = ref({
+    email: '',
+    telephone: '',
+    cpf: '',
+    data_of_birth: ''
+})
 
 const nextStep = () => {
     if (currentStep.value < 2) currentStep.value++
@@ -16,9 +38,67 @@ const prevStep = () => {
     if (currentStep.value > 1) currentStep.value--
 }
 
-const handleRegister = () => {
-    // ação de cadastro aqui
-    console.log("Cadastrar")
+const updateFormOne = (data) => {
+    formOneData.value = data
+}
+
+const updateFormTwo = (data) => {
+    formTwoData.value = data
+}
+
+const handleRegister = async () => {
+    if (isRegistering.value) return // Previne múltiplos cliques
+
+    try {
+        isRegistering.value = true
+
+        // Dados base do usuário
+        const userData = {
+            username: formOneData.value.username,
+            name: formOneData.value.name,
+            password: formOneData.value.password,
+            email: formTwoData.value.email,
+            telephone: formTwoData.value.telephone,
+            data_of_birth: formTwoData.value.data_of_birth
+        }
+
+        let registerData = {}
+
+        if (formOneData.value.userType === 'responsible') {
+            // Dados para responsável
+            registerData = {
+                cpf: formTwoData.value.cpf,
+                user: userData
+            }
+        } else if (formOneData.value.userType === 'passenger') {
+            // Dados para passageiro
+            registerData = {
+                cpf: formTwoData.value.cpf,
+                is_student: false,
+                user: userData
+            }
+        }
+
+        // Seleciona o serviço correto baseado no tipo de usuário
+        let response
+        if (formOneData.value.userType === 'responsible') {
+            response = await authStore.register(registerData)
+        } else if (formOneData.value.userType === 'passenger') {
+            response = await AuthService.registerPassenger(registerData)
+        }
+
+        if (response.error) {
+            showErrorToast(response.error.message || 'Erro ao realizar cadastro')
+            return
+        }
+
+        showSuccessToast('Cadastro realizado com sucesso!')
+        router.push('/blank/login')
+    } catch (error) {
+        showErrorToast(error.message || 'Erro ao realizar cadastro')
+    } finally {
+        isRegistering.value = false
+    }
 }
 </script>
 
@@ -30,7 +110,16 @@ const handleRegister = () => {
                 <div class="form-container">
                     <transition name="slide" mode="out-in">
                         <div class="form-content" :key="currentStep">
-                            <component :is="currentStep === 1 ? FormCompOne : FormCompTwo" />
+                            <FormCompOne
+                                v-if="currentStep === 1"
+                                :initial-data="formOneData"
+                                @update:data="updateFormOne"
+                            />
+                            <FormCompTwo
+                                v-if="currentStep === 2"
+                                :initial-data="formTwoData"
+                                @update:data="updateFormTwo"
+                            />
                         </div>
                     </transition>
                 </div>
@@ -40,8 +129,13 @@ const handleRegister = () => {
                         <div class="button-container" :key="currentStep">
                             <ButtonComp v-if="currentStep === 2" name="VOLTAR" @click="prevStep" padding=".5rem" />
                             <ButtonComp v-if="currentStep === 1" name="PRÓXIMO" @click="nextStep" padding=".5rem" />
-                            <ButtonComp v-if="currentStep === 2" name="CADASTRAR" @click="handleRegister"
-                                padding=".5rem" />
+                            <ButtonComp
+                                v-if="currentStep === 2"
+                                :name="isRegistering ? 'CADASTRANDO...' : 'CADASTRAR'"
+                                @click="handleRegister"
+                                padding=".5rem"
+                                :disabled="isRegistering"
+                            />
                         </div>
                     </transition>
                 </div>

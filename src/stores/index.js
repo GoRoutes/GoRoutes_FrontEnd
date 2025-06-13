@@ -1,3 +1,4 @@
 import { useLoadingStore } from "./loading";
+import { useAuthStore } from "./auth/auth";
 
-export { useLoadingStore };
+export { useLoadingStore, useAuthStore };

@@ -1,14 +1,16 @@
 <script setup>
 import { ref, defineProps } from "vue";
+import { useAuthStore } from "@/stores/auth/auth";
 import Bell from "vue-material-design-icons/Bell.vue";
 import MessageProcessingOutline from "vue-material-design-icons/MessageProcessingOutline.vue";
 
 const showMenu = ref(false);
-
+const authStore = useAuthStore();
 defineProps({
     profileImage: {
         type: String,
-        required: true,
+        //required: true,
+        default: "https://vignette.wikia.nocookie.net/monstros-sa/images/3/38/Mike1.png/revision/latest?cb=20130601113702&path-prefix=pt-br"
     },
 });
 </script>
@@ -31,13 +33,13 @@ defineProps({
 
                 <div class="profile-container" @mouseenter="showMenu = true" @mouseleave="showMenu = false">
                     <button class="profile-btn" :style="{ backgroundImage: `url(https://vignette.wikia.nocookie.net/monstros-sa/images/3/38/Mike1.png/revision/latest?cb=20130601113702&path-prefix=pt-br)` }"></button>
-                    
+
                     <Transition name="fade">
                         <div v-if="showMenu" class="dropdown-menu">
                             <ul>
                                 <li>Perfil</li>
                                 <li>Configurações</li>
-                                <li>Sair</li>
+                                <li @click="authStore.logout">Sair</li>
                             </ul>
                         </div>
                     </Transition>
