@@ -2,7 +2,9 @@
 
 :root {
   --primary-color: #022840;
+  --primary-color-rgb: 2, 40, 64;
   --secondary-color: #6264A0;
+  --secondary-color-rgb: 98, 100, 160;
   --logo-color: #050D2D;
   --comment-color: #353DCC;
 }

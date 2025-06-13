@@ -7,7 +7,8 @@ import FormCompOne from "./FormCompOne.vue"
 import FormCompTwo from "./FormCompTwo.vue"
 import { useAuthStore } from '@/stores'
 import { useRouter } from 'vue-router'
-import { showErrorToast } from '@/utils/toast'
+import { showErrorToast, showSuccessToast } from '@/utils/toast'
+import { AuthService } from '@/services'
 
 const currentStep = ref(1)
 const authStore = useAuthStore()
@@ -50,26 +51,48 @@ const handleRegister = async () => {
 
     try {
         isRegistering.value = true
-        const registerData = {
-            cpf: formTwoData.value.cpf,
-            user: {
-                username: formOneData.value.username,
-                name: formOneData.value.name,
-                password: formOneData.value.password,
-                email: formTwoData.value.email,
-                telephone: formTwoData.value.telephone,
-                data_of_birth: formTwoData.value.data_of_birth
+
+        // Dados base do usuário
+        const userData = {
+            username: formOneData.value.username,
+            name: formOneData.value.name,
+            password: formOneData.value.password,
+            email: formTwoData.value.email,
+            telephone: formTwoData.value.telephone,
+            data_of_birth: formTwoData.value.data_of_birth
+        }
+
+        let registerData = {}
+
+        if (formOneData.value.userType === 'responsible') {
+            // Dados para responsável
+            registerData = {
+                cpf: formTwoData.value.cpf,
+                user: userData
+            }
+        } else if (formOneData.value.userType === 'passenger') {
+            // Dados para passageiro
+            registerData = {
+                cpf: formTwoData.value.cpf,
+                is_student: false,
+                user: userData
             }
         }
 
-        const response = await authStore.register(registerData)
+        // Seleciona o serviço correto baseado no tipo de usuário
+        let response
+        if (formOneData.value.userType === 'responsible') {
+            response = await authStore.register(registerData)
+        } else if (formOneData.value.userType === 'passenger') {
+            response = await AuthService.registerPassenger(registerData)
+        }
 
         if (response.error) {
             showErrorToast(response.error.message || 'Erro ao realizar cadastro')
             return
         }
 
-        showErrorToast('Cadastro realizado com sucesso!', { type: 'success' })
+        showSuccessToast('Cadastro realizado com sucesso!')
         router.push('/blank/login')
     } catch (error) {
         showErrorToast(error.message || 'Erro ao realizar cadastro')

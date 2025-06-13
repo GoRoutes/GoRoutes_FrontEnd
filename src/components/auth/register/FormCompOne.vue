@@ -86,7 +86,7 @@ const selectUserType = (type) => {
           </div>
           <div class="button-content">
             <span class="button-title">Passageiro</span>
-            <span class="button-subtitle">Apenas passageiro individual</span>
+            <span class="button-subtitle">Passageiro individual</span>
           </div>
         </button>
       </div>

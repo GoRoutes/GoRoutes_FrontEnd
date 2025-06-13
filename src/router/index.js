@@ -6,6 +6,10 @@ import { useAuthStore } from '@/stores';
 
 const routes = [
   {
+    path: '/',
+    component: HomeView
+  },
+  {
     path: '/default',
     component: DefaultLayout,
     meta: { requiresAuth: true },
