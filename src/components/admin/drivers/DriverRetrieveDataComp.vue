@@ -4,6 +4,7 @@ import { useDriversStore } from '@/stores'
 import PhotoComp from '@/components/global/profiles-images/PhotoComp.vue'
 import ShowPhoto from '@/components/global/profiles-images/ShowPhoto.vue'
 import UploadPhoto from '@/components/global/profiles-images/UploadPhoto.vue'
+import AddressDriver from './AddressDriver.vue'
 
 const driversStore = useDriversStore()
 const isEditing = ref(false)
@@ -77,6 +78,7 @@ const changePhotoDialog = ref(false)
       v-model="changePhotoDialog"
       :user_id="driversStore.state.selectedDriver.id"
     />
+    <AddressDriver />
   </section>
 </template>
 
