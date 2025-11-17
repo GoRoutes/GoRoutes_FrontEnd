@@ -4,6 +4,7 @@ import { usePassengersStore } from '@/stores'
 import PhotoComp from '@/components/global/profiles-images/PhotoComp.vue'
 import ShowPhoto from '@/components/global/profiles-images/ShowPhoto.vue'
 import UploadPhoto from '@/components/global/profiles-images/UploadPhoto.vue'
+import AddressPassenger from './AddressPassenger.vue'
 
 const passengersStore = usePassengersStore()
 const isEditing = ref(false)
@@ -85,6 +86,7 @@ const isStudent = computed(() => {
         <!-- Modais -->
         <ShowPhoto v-model="viewPhotoDialog" :src="passengersStore.state.selectedPassenger.picture_file" />
         <UploadPhoto v-model="changePhotoDialog" :user_id="passengersStore.state.selectedPassenger.id" />
+        <AddressPassenger />
     </section>
 </template>
 
