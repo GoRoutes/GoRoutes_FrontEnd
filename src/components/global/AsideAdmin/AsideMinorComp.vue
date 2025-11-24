@@ -30,7 +30,7 @@ const isSidebarVisible = ref(true);
 const menuItems = ref([
     { name: 'Início', icon: markRaw(HomeIcon), route: '/', color: '#5050ff' },
     { name: 'Perfil', icon: markRaw(AccountIcon), route: '/blank/profile/minor', color: '#5050ff' },
-    { name: 'Minha Rota Diária', icon: markRaw(Calendar), route: '/blank/minor/my-daily-route', color: '#5050ff' },
+    { name: 'Minha Rota Diária', icon: markRaw(Calendar), route: '/blank/main/passengers', color: '#5050ff' },
 ]);
 
 const isMobile = ref(false);

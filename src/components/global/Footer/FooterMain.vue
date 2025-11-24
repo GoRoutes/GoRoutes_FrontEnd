@@ -33,9 +33,7 @@
         <h4>IFC Araquari</h4>
         <ul>
           <li><a href="#">Sobre o projeto</a></li>
-          <li><a href="#">Orientador: Marco André</a></li>
-          <li><a href="#">Curso TDSI</a></li>
-          <li><a href="#">Contato</a></li>
+          <li><a href="#">Orientador: Marco André e Eduardo da Silva</a></li>
         </ul>
       </div>
     </div>
@@ -70,7 +68,7 @@
 
 .footer-column h4 {
   color: white;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-size: 1.1rem;
 }
 
@@ -103,7 +101,7 @@
   align-items: center;
   max-width: 1200px;
   margin: 1rem auto 0;
-  padding-top: 2rem;
+  padding-top: .5rem;
   border-top: 1px solid #444;
 }
 

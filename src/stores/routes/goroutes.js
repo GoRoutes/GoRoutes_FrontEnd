@@ -4,6 +4,7 @@ import { reactive, ref } from 'vue'
 import { useAuthStore } from '../auth/auth'
 import { showErrorToast, showSuccessToast } from '@/utils/toast'
 import router from '@/router'
+import { useStorage } from '@vueuse/core'
 
 export const useGoRoutesStore = defineStore('goroutes', () => {
   const state = reactive({
@@ -18,8 +19,10 @@ export const useGoRoutesStore = defineStore('goroutes', () => {
     myDriverRoutes: [],
     loading: false,
     error: null,
-    myPassengerOpenedRoute : null,
-    myDailyRouteDriver: null
+    myPassengerOpenedRoute: null,
+    myDailyRouteDriver: null,
+    // Estado de navegação persistente com localStorage
+    isNavigating: useStorage('driver-navigation-mode', false)
   })
 
   const state_create = reactive({
@@ -182,6 +185,8 @@ export const useGoRoutesStore = defineStore('goroutes', () => {
       return response
     } catch (error) {
       console.log(error)
+    } finally {
+      window.location.reload()
     }
   }
 
@@ -224,28 +229,62 @@ export const useGoRoutesStore = defineStore('goroutes', () => {
     try {
       const response = await GoRoutesService.filterMyOpenedPassengerRoute(id)
 
-      if(response.data.has_route){
+      if (response.data.has_route) {
         state.myPassengerOpenedRoute = response.data.route
         return true
-      }else{
+      } else {
         return false
       }
 
-    } catch(error){
+    } catch (error) {
       console.error(error)
     }
   }
 
   const createDailyRoute = async (data) => {
-    try{
+    try {
       const response = await GoRoutesService.createDailyRoute(data)
       showSuccessToast(`Rota do dia criada com sucesso!`)
       return response
-    }catch(error){
+    } catch (error) {
       console.error(error)
     }
   }
 
+  // ========== FUNÇÕES DE NAVEGAÇÃO ==========
+  
+  /**
+   * Alterna o modo de navegação
+   */
+  const toggleNavigationMode = () => {
+    state.isNavigating = !state.isNavigating
+    console.log('🧭 Modo navegação alterado:', state.isNavigating)
+  }
+
+  /**
+   * Define o modo de navegação
+   * @param {boolean} value - true para ativar, false para desativar
+   */
+  const setNavigationMode = (value) => {
+    state.isNavigating = value
+    console.log('🧭 Modo navegação definido:', state.isNavigating)
+  }
+
+  /**
+   * Obtém o status atual de navegação
+   * @returns {boolean}
+   */
+  const getNavigationMode = () => {
+    return state.isNavigating
+  }
+
+  /**
+   * Reseta o modo de navegação (útil ao finalizar a rota)
+   */
+  const resetNavigationMode = () => {
+    state.isNavigating = false
+    console.log('🛑 Modo navegação resetado')
+  }
 
   return {
     state,
@@ -264,6 +303,11 @@ export const useGoRoutesStore = defineStore('goroutes', () => {
     createRoute,
     deleteRoute,
     filterMyOpenedPassengerRoute,
-    createDailyRoute  
+    createDailyRoute,
+    // Funções de navegação
+    toggleNavigationMode,
+    setNavigationMode,
+    getNavigationMode,
+    resetNavigationMode
   }
 })

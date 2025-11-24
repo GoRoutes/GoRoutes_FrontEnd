@@ -159,10 +159,19 @@ const maxHeight = window.innerHeight * 0.8;
 const isDragging = ref(false);
 const startY = ref(0);
 
-const isDriving = ref(false);
+const isDriving = ref(goRoutesStore.state.isNavigating);
 const currentPassengerIndex = ref(0);
 
-const toggleDriving = () => { isDriving.value = !isDriving.value; currentPassengerIndex.value = 0; }
+const toggleDriving = () => { 
+  isDriving.value = goRoutesStore.state.isNavigating; 
+  currentPassengerIndex.value = 0;
+  goRoutesStore.toggleNavigationMode()
+  
+  // Emitir evento para o componente do mapa
+  window.dispatchEvent(new CustomEvent('navigation-mode-changed', {
+    detail: { enabled: isDriving.value }
+  }));
+}
 
 const onTouchStart = e => { isDragging.value = true; startY.value = e.touches[0].clientY; }
 const onTouchMove = e => {
@@ -192,8 +201,6 @@ const markPassengerAsPickedUp = async () => {
   });
 
   await goRoutesStore.refreshDailyRouteById(passenger.daily_route);
-
-  // Agora zera o índice para pegar o próximo não processado corretamente
   currentPassengerIndex.value = 0;
 }
 
@@ -209,9 +216,9 @@ const markPassengerAsMissed = async () => {
   });
 
   await goRoutesStore.refreshDailyRouteById(passenger.daily_route);
-
   currentPassengerIndex.value = 0;
 }
+
 // Utils
 const getShortAddress = address => address?.split(",").slice(0,2).join(",")||"";
 const getDurationText = () => {
@@ -233,7 +240,6 @@ const getStatusText = () => {
   switch(getStatusClass()){ case "pending": return "Aguardando"; case "in-progress": return "Em andamento"; case "completed": return "Concluída"; default: return "Indefinido";}
 }
 </script>
-
 
 <style scoped>
 .bottom-sheet {
@@ -355,11 +361,41 @@ const getStatusText = () => {
   transform: translateX(28px);
 }
 
+.navigation-mode-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  animation: pulse 2s infinite;
+}
+
+.navigation-icon {
+  font-size: 18px;
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Seção do Passageiro Atual */
 .current-passenger-section {
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
   border: 2px solid var(--primary-color);
 }
 
@@ -378,13 +414,13 @@ const getStatusText = () => {
 
 .passenger-progress {
   font-size: 12px;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .current-passenger-card {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 16px;
@@ -395,7 +431,7 @@ const getStatusText = () => {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -416,7 +452,7 @@ const getStatusText = () => {
 
 .passenger-details .passenger-address {
   font-size: 12px;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .passenger-actions {
@@ -451,21 +487,12 @@ const getStatusText = () => {
 }
 
 .picked-btn {
-  background: rgba(16, 185, 129, 0.9);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
 }
 
 .picked-btn:hover {
-  background: rgba(16, 185, 129, 1);
   transform: translateY(-2px);
-}
-
-.btn-icon {
-  font-size: 16px;
-}
-
-.btn-text {
-  font-size: 14px;
 }
 
 /* Seção quando não há passageiros */
@@ -578,32 +605,6 @@ const getStatusText = () => {
   font-size: 14px;
   color: #111827;
   font-weight: 500;
-}
-
-.route-stats {
-  display: flex;
-  justify-content: space-around;
-  background: #f3f4f6;
-  padding: 16px;
-  border-radius: 12px;
-  margin-bottom: 16px;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-value {
-  display: block;
-  font-size: 18px;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 4px;
-}
-
-.stat-label {
-  font-size: 12px;
-  color: #6b7280;
 }
 
 .passengers-section {

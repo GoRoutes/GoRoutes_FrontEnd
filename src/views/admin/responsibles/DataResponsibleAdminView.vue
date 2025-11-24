@@ -2,14 +2,16 @@
 import { onMounted, ref } from 'vue'
 import { DataResponsible } from '@/components'
 import AccountCircle from "vue-material-design-icons/AccountCircle.vue"
-import { useAuthStore } from '@/stores'
+import { useAuthStore, useDependentStore } from '@/stores'
 import route from '@/router'
 
 const authStore = useAuthStore()
 const currentResponsible = ref(null)
+const dependentsStore = useDependentStore()
 
 onMounted(async () => {
   currentResponsible.value = await authStore.userById(route.currentRoute.value.params.id)
+  await dependentsStore.responsibleByStudentFilter(route.currentRoute.value.params.id)
 })
 </script>
 
@@ -38,5 +40,7 @@ main {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+
 }
 </style>

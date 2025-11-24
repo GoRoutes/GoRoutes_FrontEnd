@@ -32,10 +32,10 @@ export const useDependentStore = defineStore('Dependent', () => {
     student_data: {
       grade: '',
       registration: '',
-      responsible: authStore.state.user.responsible_data.id,
+      responsible: null,
     },
-    myDependents : [],
-  selectedDependentToTrack: null, // ← Adicione esta linha
+    dependentsByResponsibleId : [],
+  selectedDependentToTrack:  authStore.state.user?.responsible_data?.id || null,
   })
 
   const registerDependent = async (data) => {
@@ -49,7 +49,7 @@ export const useDependentStore = defineStore('Dependent', () => {
   const responsibleByStudentFilter = async (id) => {
     try {
       const response = await AuthService.responsibleByStudentFilter(id)
-      state.myDependents = response.data
+      state.dependentsByResponsibleId = response.data
       return response
     } catch (error) {
       console.error(error)

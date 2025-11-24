@@ -60,7 +60,7 @@ onMounted(async () => {
     const responsibleId = 1;
     await dependentStore.responsibleByStudentFilter(responsibleId);
 
-    const dependents = dependentStore.state.myDependents
+    const dependents = dependentStore.state.dependentsByResponsibleId
       .filter(d => d.my_location && d.my_location.latitude && d.my_location.longitude);
 
     const markersWithIcons = await Promise.all(

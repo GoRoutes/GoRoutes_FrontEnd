@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onMounted, ref, onUnmounted } from "vue"
+import { useRoute, useRouter } from "vue-router"
 import Map from "vue-material-design-icons/Map.vue"
 import MapMarkerCheck from "vue-material-design-icons/MapMarkerCheck.vue"
 import MapMarkerRemoveVariant from "vue-material-design-icons/MapMarkerRemoveVariant.vue"
@@ -10,16 +11,38 @@ import Navigation from "vue-material-design-icons/Navigation.vue"
 import MapMarker from "vue-material-design-icons/MapMarker.vue"
 import AlertCircle from "vue-material-design-icons/AlertCircle.vue"
 import { useGoRoutesStore } from "@/stores"
-import router from "@/router"
 
 const goRoutesStore = useGoRoutesStore()
+const route = useRoute()
+const router = useRouter()
+
+const passengerId = computed(() => parseInt(route.params.id))
 
 onMounted(async () => {
     window.addEventListener('resize', handleResize)
     await goRoutesStore.filterMyDriverRoutes()
 })
 
-const routes = computed(() =>
+const routesWithPassenger = computed(() =>
+    goRoutesStore.state.myDriverRoutes
+        .filter(route => 
+            route.passengers.some(passenger => passenger.user.id === passengerId.value)
+        )
+        .map(route => ({
+            ...route,
+            status: route.is_active ? "active" : "inactive",
+            distanceKm: (route.distance / 1000).toFixed(1) + " km",
+            passengers: route.passengers,
+            passengersCount: route.passengers.length,
+            vehicleModel: route.vehicle?.model || "Sem veículo",
+            // Informação específica do passageiro nesta rota
+            passengerInfo: route.passengers.find(p => p.user.id === passengerId.value)
+        }))
+)
+
+const hasPassengerInRoutes = computed(() => routesWithPassenger.value.length > 0)
+
+const allRoutes = computed(() =>
     goRoutesStore.state.myDriverRoutes.map(route => ({
         ...route,
         status: route.is_active ? "active" : "inactive",
@@ -30,20 +53,7 @@ const routes = computed(() =>
     }))
 )
 
-// Computed para verificar se há rotas
-const hasRoutes = computed(() => routes.value.length > 0)
-
-const selectDailyRoute = (route) => {
-    for (const p of route.passengers){
-        goRoutesStore.state_create.daily_route.passenger_list.push(p.user.id)
-    }
-    
-    goRoutesStore.state_create.daily_route.original = route.original || true
-    goRoutesStore.state_create.daily_route.date = "2024-02-02"
-    goRoutesStore.state_create.daily_route.route = route.id
-
-    router.push(`/default/admin/drivers/init-daily-route/${route.id}`)
-}
+const hasRoutes = computed(() => allRoutes.value.length > 0)
 
 const windowWidth = ref(window.innerWidth)
 
@@ -51,36 +61,39 @@ const handleResize = () => {
   windowWidth.value = window.innerWidth
 }
 
-onMounted(() => {
-})
-
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
 })
 
 const isMobile = () => windowWidth.value <= 1024
 </script>
+
 <template>
     <div class="routes-container">
         <div class="page-header">
             <div class="header-content">
                 <Map :size="32" class="header-icon" />
-                <h2 class="page-title">Minhas Rotas</h2>
+                <h2 class="page-title">Rotas do Passageiro #{{ passengerId }}</h2>
             </div>
-            <div v-if="hasRoutes" class="header-stats">
+            <div class="header-stats">
                 <div class="stat-item">
-                    <span class="stat-number">{{routes.filter(r => r.status === 'active').length}}</span>
-                    <span class="stat-label">Ativas</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">{{ routes.length }}</span>
-                    <span class="stat-label">Total</span>
+                    <span class="stat-number">{{ routesWithPassenger.length }}</span>
+                    <span class="stat-label">Rotas com Passageiro</span>
                 </div>
             </div>
         </div>
 
-        <!-- Estado quando não há rotas -->
-        <div v-if="!hasRoutes" class="no-routes-container">
+        <div v-if="hasRoutes && !hasPassengerInRoutes" class="no-passenger-routes-container">
+            <div class="no-passenger-routes-content">
+                <h3 class="no-passenger-routes-title">Passageiro não encontrado</h3>
+                <p class="no-passenger-routes-message">
+                    O passageiro #{{ passengerId }} não está em nenhuma das rotas cadastradas.
+                    <v-btn @click="router.push('/default/admin/routes/create')">Criar Rota</v-btn>
+                </p>
+            </div>
+        </div>
+
+        <div v-else-if="!hasRoutes" class="no-routes-container">
             <div class="no-routes-content">
                 <AlertCircle :size="64" class="no-routes-icon" />
                 <h3 class="no-routes-title">Nenhuma rota cadastrada</h3>
@@ -91,10 +104,10 @@ const isMobile = () => windowWidth.value <= 1024
             </div>
         </div>
 
-        <!-- Grid de rotas (apenas quando há rotas) -->
         <div v-else class="routes-grid">
-            <v-card v-for=" route in routes" :key="route.id" class="route-card" elevation="2"
-                :class="{ 'inactive-route': route.status === 'inactive' }">
+            <v-card v-for="route in routesWithPassenger" :key="route.id" class="route-card" elevation="2"
+                :class="{ 'inactive-route': route.status === 'inactive', 'has-passenger': true }">
+                
                 <v-card-title class="card-header">
                     <div class="route-status">
                         <MapMarkerCheck v-if="route.status === 'active'" :size="24" class="status-icon active" />
@@ -102,12 +115,14 @@ const isMobile = () => windowWidth.value <= 1024
                     </div>
                     <div class="route-name">
                         <h3>{{ route.name }}</h3>
+                        <div v-if="route.passengerInfo" class="passenger-order">
+                            Ordem de coleta: {{ route.passengerInfo.order }}
+                        </div>
                     </div>
                 </v-card-title>
 
                 <v-card-text class="card-content">
                     <div class="route-details-grid">
-                        <!-- Linha 1 -->
                         <div class="detail-item">
                             <Navigation :size="20" class="detail-icon" />
                             <div class="detail-content">
@@ -132,7 +147,6 @@ const isMobile = () => windowWidth.value <= 1024
                             </div>
                         </div>
 
-                        <!-- Linha 2 -->
                         <div class="detail-item">
                             <AccountGroup :size="20" class="detail-icon" />
                             <div class="detail-content">
@@ -150,7 +164,10 @@ const isMobile = () => windowWidth.value <= 1024
                         </div>
 
                         <div class="detail-item">
-                            <!-- Espaço reservado ou futuro campo -->
+                            <div class="detail-content">
+                                <div class="detail-label">Status Passageiro</div>
+                                <div class="detail-value passenger-status">Presente</div>
+                            </div>
                         </div>
                     </div>
                 </v-card-text>
@@ -161,14 +178,11 @@ const isMobile = () => windowWidth.value <= 1024
                         Editar
                     </v-btn>
                     <v-btn variant="elevated" color="primary" size="small" rounded="xs"
-                        prepend-icon="mdi-map-marker-check" class="solid-btn" :width="isMobile() ? '100%' : 'auto'" @click="router.push(`default/admin/route/${route.id}`)">
+                        prepend-icon="mdi-map-marker-check" class="solid-btn" :width="isMobile() ? '100%' : 'auto'">
                         Ver Detalhes
                     </v-btn>
                     <v-spacer />
-                    <v-btn variant="elevated" color="error" rounded="xs" prepend-icon="mdi-navigation" class="solid-btn"
-                        @click="selectDailyRoute(route)" :width="isMobile() ? '100%' : 'auto'">
-                        INICIAR ROTA
-                    </v-btn>
+                  
                 </v-card-actions>
             </v-card>
         </div>
@@ -177,8 +191,9 @@ const isMobile = () => windowWidth.value <= 1024
 
 <style scoped>
 .routes-container {
-    padding: 1.5rem;
-    max-width: 1200px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 100%;
     margin: 0 auto;
 }
 

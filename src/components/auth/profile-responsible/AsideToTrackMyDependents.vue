@@ -10,11 +10,11 @@ const selectedDependent = computed(() => dependentStore.state.selectedDependentT
 // Computed para filtrar dependentes baseado na pesquisa
 const filteredDependents = computed(() => {
   if (!searchQuery.value) {
-    return dependentStore.state.myDependents;
+    return dependentStore.state.dependentsByResponsibleId;
   }
   
   const query = searchQuery.value.toLowerCase();
-  return dependentStore.state.myDependents.filter(dependent => 
+  return dependentStore.state.dependentsByResponsibleId.filter(dependent => 
     dependent.name.toLowerCase().includes(query) ||
     dependent.email.toLowerCase().includes(query) ||
     dependent.passenger_data?.student_data?.grade?.toLowerCase().includes(query) ||
@@ -147,7 +147,7 @@ const clearSearch = () => {
       <div class="section-header">
         <h3>Meus Dependentes</h3>
         <span class="counter" v-if="filteredDependents.length > 0">
-          {{ filteredDependents.length }} de {{ dependentStore.state.myDependents.length }}
+          {{ filteredDependents.length }} de {{ dependentStore.state.dependentsByResponsibleId.length }}
         </span>
       </div>
 

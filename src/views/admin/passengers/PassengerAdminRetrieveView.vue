@@ -33,5 +33,7 @@ main {
     color: var(--primary-color);
     margin-bottom: 2rem;
     margin-top: 2rem;
+        border-bottom: 2px solid rgb(var(--v-theme-primary));
+
 }
 </style>

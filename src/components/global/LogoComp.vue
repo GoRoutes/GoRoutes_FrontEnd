@@ -29,10 +29,10 @@ const subtext = computed(() =>
 </script>
 
 <template>
-  <div class="logo-container">
+  <RouterLink to="/" class="logo-container">
     <img src="../../assets/images/LogoRemoved.png" alt="Logo" class="logo" />
     <h1>GoRoutes</h1>
-  </div>
+  </RouterLink>
   <div class="text-container">
     <h1 class="logo-text">{{ mainText }}</h1>
     <h3 class="logo-subtext">{{ heading }}</h3>
@@ -47,6 +47,13 @@ const subtext = computed(() =>
   display: flex;
   align-items: center;
   justify-content: left;
+  text-decoration: none; /* Remove o sublinhado do link */
+  cursor: pointer; /* Muda o cursor para pointer */
+}
+
+.logo-container:hover {
+  opacity: 0.8; /* Efeito visual no hover */
+  transition: opacity 0.2s ease; /* Transição suave */
 }
 
 .logo-container img {
@@ -105,7 +112,6 @@ p.logo-subtext {
     justify-content: center;
     text-align: center;
     width: 90%;
-    
   }
 
   .logo-container h1 {

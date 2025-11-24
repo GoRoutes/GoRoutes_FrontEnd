@@ -4,6 +4,8 @@ import { usePassengersStore } from '@/stores'
 import PhotoComp from '@/components/global/profiles-images/PhotoComp.vue'
 import ShowPhoto from '@/components/global/profiles-images/ShowPhoto.vue'
 import UploadPhoto from '@/components/global/profiles-images/UploadPhoto.vue'
+import RoutesPassengerComp from './RoutesPassengerComp.vue'
+import MyResponsibleComp from './MyResponsibleComp.vue'
 
 const passengersStore = usePassengersStore()
 const isEditing = ref(false)
@@ -81,6 +83,9 @@ const isStudent = computed(() => {
                 </div>
             </div>
         </div>
+
+        <MyResponsibleComp :passenger="passengersStore.state.selectedPassenger" />
+        <RoutesPassengerComp />
 
         <!-- Modais -->
         <ShowPhoto v-model="viewPhotoDialog" :src="passengersStore.state.selectedPassenger.picture_file" />

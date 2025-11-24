@@ -3,6 +3,7 @@ import { ref, onMounted, reactive } from 'vue'
 import PhotoComp from '@/components/global/profiles-images/PhotoComp.vue'
 import ShowPhoto from '@/components/global/profiles-images/ShowPhoto.vue'
 import UploadPhoto from '@/components/global/profiles-images/UploadPhoto.vue'
+import MyAdminDependentsComp from './MyAdminDependentsComp.vue'
 
 const props = defineProps({
   dependent: {
@@ -26,10 +27,6 @@ const d = reactive({
   email: props.dependent.data.email,
   telephone: props.dependent.data.telephone
 })
-
-function toggleEdit() {
-  isEditing.value = !isEditing.value
-}
 
 function updateScreenSize() {
   isSmallScreen.value = window.matchMedia('(max-width: 1024px)').matches
@@ -92,6 +89,7 @@ onMounted(() => {
         <ShowPhoto v-model="viewPhotoDialog" :src="d.foto" />
         <UploadPhoto v-model="changePhotoDialog" :user_id="d.id" />
     <ModalAddDependent :model-value="dialog" />
+    <MyAdminDependentsComp />
   </section>
 </template>
 
